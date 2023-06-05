@@ -1,17 +1,37 @@
 import React from 'react';
+import { Typography } from '@mui/material';
 import Logo from '../assets/logo.png';
 
+import Background from '../assets/tedu-front.jpg';
+import { LoginForm } from '../components/Forms/LoginForm/LoginForm';
+import { Banner } from '../components/Banner/Banner';
+import { Features } from '../components/Features/Features';
+
 function Home() {
-    return <div
-        className='bg-black h-screen w-screen flex flex-col text-white text-center items-center justify-center gap-5 p-5'>
-        <img className='w-1/4' src={Logo} alt='React'/>
-        <h1 className='text-5xl font-bold'>React v18.1 Boilerplate</h1>
-        <h2 className='text-2xl'>Technologies Integrated:</h2>
-        <h3 className='text-lg'>
-            TypeScript, Webpack, Tailwind.css, Eslint, Prettier, Husky, LintStaged, Babel, Jest, Redux,
-            i18n, StyleLint, PostCSS
-        </h3>
+  return (
+    <div>
+      <div
+        style={{
+          backgroundImage: `url(${Background})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }}
+        className='w-screen aspect-video flex flex-col p-16 justify-center items-center'
+      >
+        <div className='text-white mb-4 md:mb-8 lg:mb-16'>
+          <Typography variant='h4'>Ted University</Typography>
+          <Typography variant='h3'>Log-in to improve your learning</Typography>
+          <Typography variant='body1'>
+            We believe that everyone should be able to reach courses and keep learning online as if
+            they are in the school
+          </Typography>
+        </div>
+        <LoginForm />
+      </div>
+      <Banner />
+      <Features />
     </div>
+  );
 }
 
 export default Home;

@@ -1,5 +1,4 @@
 import React from 'react';
-import 'antd/dist/reset.css';
 import './styles/index.scss';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
