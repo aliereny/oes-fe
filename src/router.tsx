@@ -10,6 +10,7 @@ import { ListUsers } from './pages/User/List/ListUsers';
 import { ViewUser } from './pages/User/View/ViewUser';
 import { CreateUser } from './pages/User/Create/CreateUser';
 import { EditUser } from './pages/User/Edit/EditUser';
+import { VerifyPhone } from './pages/Auth/VerifyPhone';
 
 export const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,9 @@ export const Router = createBrowserRouter(
         <Route path='create' element={<CreateUser />} />
         <Route path=':id' element={<ViewUser />} />
         <Route path='edit/:id' element={<EditUser />} />
+      </Route>
+      <Route path='verify'>
+        <Route index element={<VerifyPhone />} />
       </Route>
     </Route>
   )

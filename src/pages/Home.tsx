@@ -1,7 +1,5 @@
 import React from 'react';
 import { Button, Typography } from '@mui/material';
-
-import SaveIcon from '@mui/icons-material/Save';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import Background from '../assets/tedu-front.jpg';
 import { LoginForm } from '../forms/LoginForm/LoginForm';

@@ -32,7 +32,7 @@ export const useAuthStore = create<State>()(
         signOut: () => set((state) => ({ ...state, loggedIn: false, user: undefined })),
       }),
       {
-        name: 'user-storage',
+        name: 'auth-storage',
       }
     )
   )
