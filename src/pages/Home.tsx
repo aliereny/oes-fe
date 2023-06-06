@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import Logo from '../assets/logo.png';
 
 import Background from '../assets/tedu-front.jpg';
-import { LoginForm } from '../components/Forms/LoginForm/LoginForm';
+import { LoginForm } from '../forms/LoginForm/LoginForm';
 import { Banner } from '../components/Banner/Banner';
 import { Features } from '../components/Features/Features';
 

@@ -40,6 +40,8 @@ module.exports = {
     'no-duplicate-imports': 'error',
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'import/prefer-default-export': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/function-component-definition': 'off',
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
 };
