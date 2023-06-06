@@ -6,6 +6,10 @@ import { ViewCourse } from './pages/Course/View/ViewCourse';
 import { EditCourse } from './pages/Course/Edit/EditCourse';
 import { CreateCourse } from './pages/Course/Create/CreateCourse';
 import { ListCourses } from './pages/Course/List/ListCourses';
+import { ListUsers } from './pages/User/List/ListUsers';
+import { ViewUser } from './pages/User/View/ViewUser';
+import { CreateUser } from './pages/User/Create/CreateUser';
+import { EditUser } from './pages/User/Edit/EditUser';
 
 export const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,6 +20,12 @@ export const Router = createBrowserRouter(
         <Route path='create' element={<CreateCourse />} />
         <Route path=':id' element={<ViewCourse />} />
         <Route path='edit/:id' element={<EditCourse />} />
+      </Route>
+      <Route path='users'>
+        <Route index element={<ListUsers />} />
+        <Route path='create' element={<CreateUser />} />
+        <Route path=':id' element={<ViewUser />} />
+        <Route path='edit/:id' element={<EditUser />} />
       </Route>
     </Route>
   )

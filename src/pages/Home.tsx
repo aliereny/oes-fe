@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography } from '@mui/material';
-import Logo from '../assets/logo.png';
 
 import Background from '../assets/tedu-front.jpg';
 import { LoginForm } from '../forms/LoginForm/LoginForm';
