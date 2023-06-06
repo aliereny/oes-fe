@@ -14,12 +14,22 @@ type State = {
   getInstructors: () => User[];
   getStudents: () => User[];
 };
+const admin: User = {
+  name: 'Eren Yogurtcu',
+  password: '123456',
+  phone: '+905067642525',
+  email: 'aeren.yogurtcu@gmail.com',
+  givenCourses: [],
+  enrolledCourses: [],
+  role: Role.ADMIN,
+  id: 'd22c5bde-cec2-4c14-9bdd-df72955da185',
+};
 
 export const useUserStore = create<State>()(
   devtools(
     persist(
       (set, get) => ({
-        users: [],
+        users: [admin],
         getAdmins: () => {
           const { users } = get();
           return users.filter((item) => item.role === Role.ADMIN);
