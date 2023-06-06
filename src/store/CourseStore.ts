@@ -16,10 +16,14 @@ export const useCourseStore = create<State>()(
     persist(
       (set, get) => ({
         courses: [],
-        createCourse: (course) =>
+        createCourse: (course) => {
           set((state) => ({
-            courses: [...state.courses, { ...course, id: uuid() }],
-          })),
+            courses: [
+              ...state.courses,
+              { ...course, id: uuid(), instructors: [], students: [], contents: [] },
+            ],
+          }));
+        },
         deleteCourse: (id) =>
           set((state) => ({
             courses: state.courses.filter((course) => course.id !== id),

@@ -14,44 +14,49 @@ import {
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import EditIcon from '@mui/icons-material/Edit';
+import { useCourseStore } from '../../../store/CourseStore';
 
 export function ViewCourse() {
-  const x = 5;
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const course = {
-    name: 'SENG 214',
-    subject: 'Software Engineering',
-    level: 'Intermediate',
-    description:
-      'Software Engineering: introduction, basic terminology, principles and ethics.' +
-      'Software Processes: process models, activities. Agile Development: agile' +
-      'methodology, scrum. Software Requirements: eliciting requirements,' +
-      'developing use cases, modeling with scenario-based methods, modeling with' +
-      'class-based methods, UML models and sequence diagrams. Design Concepts:' +
-      'patterns, software architecture',
-    syllabus:
-      'https://seng.tedu.edu.tr/sites/default/files/2022-09/seng-214-cmpe-313-software-engineering_fall_2022_syllabus_0.pdf',
-    contents: [
-      {
-        label: 'Lecture 1',
-        video: '/video',
-      },
-      {
-        label: 'Lecture 2',
-        video: '/video',
-      },
-      {
-        label: 'Lecture 3',
-        video: '/video',
-      },
-    ],
-    instructors: ['Elif Kurtaran Özbudak', 'Merve Isil Peten'],
-    students: ['Merve Arı', 'Ece Alpay', 'Doğa Ata'],
+  if (!id) {
+    return <Navigate to='/courses' />;
+  }
+
+  const { readCourse, deleteCourse } = useCourseStore();
+
+  const course = readCourse(id);
+
+  if (!course) {
+    return <Navigate to='/courses' />;
+  }
+
+  const handleDelete = () => {
+    deleteCourse(course.id);
+    navigate('/courses');
   };
+
   return (
-    <div className="p-4 md:p-16">
-      <div className="flex flex-col w-full lg:w-1/2 mx-auto gap-8">
+    <div className='p-4 md:p-16'>
+      <div className='flex flex-col w-full lg:w-1/2 mx-auto gap-8'>
         <div className='flex flex-col gap-4'>
+          <div className='flex flex-row gap-4'>
+            <Button
+              color='error'
+              variant='contained'
+              startIcon={<RemoveCircleOutlineIcon />}
+              onClick={handleDelete}
+            >
+              Delete
+            </Button>
+            <Button variant='outlined' startIcon={<EditIcon />} href={`/courses/edit/${course.id}`}>
+              Edit
+            </Button>
+          </div>
           <Typography variant='h4'>{course.name}</Typography>
           <Typography variant='h6'>{course.subject}</Typography>
           <span>
@@ -79,8 +84,8 @@ export function ViewCourse() {
             ))}
           </List>
         </div>
-        <div className="flex flex-col">
-          <Typography variant='h5'>Contents</Typography>
+        <div className='flex flex-col'>
+          <Typography variant='h5'>Instructors</Typography>
           <List>
             {course.instructors.map((item) => (
               <ListItem key={item}>
@@ -92,6 +97,11 @@ export function ViewCourse() {
                 <ListItemText primary={item} secondary='Instructor' />
               </ListItem>
             ))}
+          </List>
+        </div>
+        <div className='flex flex-col'>
+          <Typography variant='h5'>Students</Typography>
+          <List>
             {course.students.map((item) => (
               <ListItem key={item}>
                 <ListItemAvatar>

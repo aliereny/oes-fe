@@ -28,7 +28,9 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
         <Typography variant='body2'>{course.description}</Typography>
       </CardContent>
       <CardActions>
-        <Button size='small'>Learn More</Button>
+        <Button size='small' href={`/courses/${course.id}`}>
+          Learn More
+        </Button>
       </CardActions>
     </Card>
   );
