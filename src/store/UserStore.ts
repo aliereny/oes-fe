@@ -13,7 +13,10 @@ type State = {
   getAdmins: () => User[];
   getInstructors: () => User[];
   getStudents: () => User[];
+  addInstructorCourse: (courseId: string, userId: string) => void;
+  addStudentCourse: (courseId: string, userId: string) => void;
 };
+
 const admin: User = {
   name: 'Eren Yogurtcu',
   password: '123456',
@@ -59,6 +62,38 @@ export const useUserStore = create<State>()(
           set((state) => ({
             users: state.users.map((c) => (c.id === id ? { ...c, ...user } : c)),
           })),
+        addInstructorCourse: (courseId, userId) => {
+          const { users } = get();
+          const [user] = users.filter((item) => item.id === userId);
+          set((state) => ({
+            users: state.users.map((u) =>
+              u.id === userId
+                ? {
+                    ...u,
+                    givenCourses: [...user.givenCourses, courseId],
+                  }
+                : u
+            ),
+          }));
+        },
+        addStudentCourse: (courseId, userId) => {
+          const { users } = get();
+          const [user] = users.filter((item) => item.id === userId);
+          set((state) => {
+            const x = {
+              users: state.users.map((u) =>
+                u.id === userId
+                  ? {
+                      ...u,
+                      enrolledCourses: [...user.enrolledCourses, courseId],
+                    }
+                  : u
+              ),
+            };
+            console.log(x);
+            return x;
+          });
+        },
       }),
       {
         name: 'user-storage',

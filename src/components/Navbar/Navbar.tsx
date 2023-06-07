@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { Logo } from '../Logo/Logo';
 import { useAuthStore } from '../../store/AuthStore';
+import { Role } from '../../store/models/Role.enum';
+import { useAuthUser } from '../../utils/useAuthUser';
 
 export function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -9,7 +11,8 @@ export function Navbar() {
     setSidebar((val) => !val);
   };
 
-  const { user, signOut, login, loggedIn } = useAuthStore();
+  const { signOut, loggedIn } = useAuthStore();
+  const authUser = useAuthUser();
 
   return (
     <nav className='bg-white border-gray-200 dark:bg-gray-900'>
@@ -54,14 +57,16 @@ export function Navbar() {
                 Courses
               </a>
             </li>
-            <li>
-              <a
-                className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
-                href='/users'
-              >
-                Users
-              </a>
-            </li>
+            {authUser && authUser.role === Role.ADMIN && (
+              <li>
+                <a
+                  className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
+                  href='/users'
+                >
+                  Users
+                </a>
+              </li>
+            )}
             {loggedIn && (
               <li>
                 <a
@@ -70,6 +75,16 @@ export function Navbar() {
                   className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
                 >
                   Sign out
+                </a>
+              </li>
+            )}{' '}
+            {loggedIn && (
+              <li>
+                <a
+                  href={`/users/${authUser?.id}`}
+                  className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
+                >
+                  My profile
                 </a>
               </li>
             )}

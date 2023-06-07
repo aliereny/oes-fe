@@ -9,6 +9,8 @@ type State = {
   readCourse: (id: string) => Course | undefined;
   updateCourse: (id: string, course: Partial<Course>) => void;
   deleteCourse: (id: string) => void;
+  addCourseInstructor: (courseId: string, userId: string) => void;
+  addCourseStudent: (courseId: string, userId: string) => void;
 };
 
 export const useCourseStore = create<State>()(
@@ -36,6 +38,34 @@ export const useCourseStore = create<State>()(
           set((state) => ({
             courses: state.courses.map((c) => (c.id === id ? { ...c, ...course } : c)),
           })),
+        addCourseInstructor: (courseId, userId) => {
+          const { courses } = get();
+          const [course] = courses.filter((item) => item.id === courseId);
+          set((state) => ({
+            courses: state.courses.map((c) =>
+              c.id === courseId
+                ? {
+                    ...c,
+                    instructors: [...course.instructors, userId],
+                  }
+                : c
+            ),
+          }));
+        },
+        addCourseStudent: (courseId, userId) => {
+          const { courses } = get();
+          const [course] = courses.filter((item) => item.id === courseId);
+          set((state) => ({
+            courses: state.courses.map((c) =>
+              c.id === courseId
+                ? {
+                    ...c,
+                    students: [...course.students, userId],
+                  }
+                : c
+            ),
+          }));
+        },
       }),
       {
         name: 'course-storage',

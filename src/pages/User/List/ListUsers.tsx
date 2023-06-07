@@ -14,6 +14,7 @@ import { useUserStore } from '../../../store/UserStore';
 
 export function ListUsers() {
   const { getAdmins, getInstructors, getStudents } = useUserStore();
+
   return (
     <div className='bg-blue-50'>
       <Button variant='contained' endIcon={<AddIcon />} href='/users/create'>

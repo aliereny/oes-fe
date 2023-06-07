@@ -4,7 +4,8 @@ import { User } from './models/User.interface';
 import { useUserStore } from './UserStore';
 
 type State = {
-  user?: User;
+  userId: string;
+  user: () => User | undefined;
   loggedIn: boolean;
   login: (email: string, password: string) => boolean;
   signOut: () => void;
@@ -14,7 +15,16 @@ export const useAuthStore = create<State>()(
   devtools(
     persist(
       (set, get) => ({
-        user: undefined,
+        user: () => {
+          const { userId } = get();
+          const { users } = useUserStore.getState();
+          const [user] = users.filter((item) => item.id === userId);
+          if (userId && user) {
+            return user;
+          }
+          return undefined;
+        },
+        userId: '',
         loggedIn: false,
         login: (email, password) => {
           const { users } = useUserStore.getState();
@@ -25,7 +35,7 @@ export const useAuthStore = create<State>()(
           set((state) => ({
             ...state,
             loggedIn: true,
-            user,
+            userId: user.id,
           }));
           return true;
         },
